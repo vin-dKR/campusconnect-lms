@@ -3,8 +3,8 @@
 import { updateUserRole } from '@/actions/onboarding';
 import { useUser } from '@/hooks/auth/useUser';
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
-import { useFormState, useFormStatus } from 'react-dom';
+import { useActionState, useEffect, useState } from 'react';
+import {  useFormStatus } from 'react-dom';
 
 function SubmitButton() {
   const { pending } = useFormStatus();
@@ -26,7 +26,7 @@ export default function OnboardingPage() {
   const [role, setRole] = useState('student');
 
   const initialState = { error: null };
-  const [state, formAction] = useFormState(updateUserRole, initialState);
+  const [state, formAction] = useActionState(updateUserRole, initialState);
 
   useEffect(() => {
     if (user && user.user_metadata.role) {
