@@ -3,6 +3,7 @@
 import { Button } from '@/components/ui/button';
 import { ThemeToggle } from '@/components/ui/theme-toggle';
 import { useAuthStore, type UserRole } from '@/store/auth-store';
+import Link from 'next/link';
 
 interface HeaderProps {
     onGuestLogin: (role: UserRole) => void;
@@ -33,20 +34,13 @@ export function Header({ onGuestLogin }: HeaderProps) {
 
                     {/* Actions */}
                     <div className="flex items-center space-x-4">
-                        <Button
-                            variant="ghost"
-                            className="text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
-                            onClick={() => onGuestLogin('student')}
-                        >
-                            Sign in
-                        </Button>
                         <ThemeToggle />
-                        <Button
-                            onClick={() => onGuestLogin('teacher')}
-                            className="hidden sm:flex h-9 px-4 bg-slate-900 hover:bg-slate-800 dark:bg-white dark:text-slate-900 dark:hover:bg-slate-200 rounded-lg"
+                        <Link
+                            href="/auth/signin"
+                            className="hidden sm:flex px-4 py-1 bg-slate-900 text-white hover:bg-slate-800 dark:bg-white dark:text-slate-900 dark:hover:bg-slate-200 rounded-lg"
                         >
                             Get Started
-                        </Button>
+                        </Link>
                     </div>
                 </div>
             </div>
