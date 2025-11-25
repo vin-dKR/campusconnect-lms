@@ -5,7 +5,7 @@ import { ThemeToggle } from '@/components/ui/theme-toggle';
 import { LogOut, User, Bell, Search, Menu, ChevronDown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 
 interface DashboardHeaderProps {
     onMenuClick: () => void;
@@ -16,6 +16,20 @@ interface DashboardHeaderProps {
 export function DashboardHeader({ onMenuClick, sidebarCollapsed, onToggleSidebar }: DashboardHeaderProps) {
     const { user, logout } = useAuthStore();
     const [showUserMenu, setShowUserMenu] = useState(false);
+    const dropdownRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+                setShowUserMenu(false);
+            }
+        };
+
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, []);
 
     const getRoleColor = (role: string) => {
         switch (role) {
@@ -37,9 +51,9 @@ export function DashboardHeader({ onMenuClick, sidebarCollapsed, onToggleSidebar
                         variant="ghost"
                         size="icon"
                         onClick={onMenuClick}
-                        className="lg:hidden h-10 w-10 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800"
+                        className="lg:hidden h-10 w-10 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 hover:bg-slate-100 dark:hover:bg-slate-800 hover:border-slate-300 dark:hover:border-slate-700 transition-all duration-200 group cursor-pointer"
                     >
-                        <Menu className="w-4 h-4" />
+                        <Menu className="w-4 h-4 text-slate-600 dark:text-slate-400 group-hover:text-slate-900 dark:group-hover:text-white group-hover:scale-110 transition-transform duration-200" />
                     </Button>
 
                     {/* Desktop sidebar toggle */}
@@ -47,9 +61,9 @@ export function DashboardHeader({ onMenuClick, sidebarCollapsed, onToggleSidebar
                         variant="ghost"
                         size="icon"
                         onClick={onToggleSidebar}
-                        className="hidden lg:flex h-10 w-10 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800"
+                        className="hidden lg:flex h-10 w-10 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 hover:bg-slate-100 dark:hover:bg-slate-800 hover:border-slate-300 dark:hover:border-slate-700 transition-all duration-200 group cursor-pointer"
                     >
-                        <Menu className="w-4 h-4" />
+                        <Menu className="w-4 h-4 text-slate-500 dark:text-slate-500 group-hover:text-slate-900 dark:group-hover:text-white group-hover:scale-110 transition-transform duration-200" />
                     </Button>
 
                     <div className="hidden sm:block">
@@ -74,18 +88,18 @@ export function DashboardHeader({ onMenuClick, sidebarCollapsed, onToggleSidebar
                     <Button
                         variant="ghost"
                         size="icon"
-                        className="h-10 w-10 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800"
+                        className="h-10 w-10 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 hover:bg-slate-100 dark:hover:bg-slate-800 hover:border-slate-300 dark:hover:border-slate-700 transition-all duration-200 group cursor-pointer"
                     >
-                        <Bell className="w-4 h-4" />
+                        <Bell className="w-4 h-4 text-slate-600 dark:text-slate-400 group-hover:text-slate-900 dark:group-hover:text-white group-hover:scale-110 transition-transform duration-200" />
                     </Button>
 
                     <ThemeToggle />
 
                     {/* User menu */}
-                    <div className="relative">
+                    <div className="relative" ref={dropdownRef}>
                         <button
                             onClick={() => setShowUserMenu(!showUserMenu)}
-                            className="flex items-center space-x-3 p-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                            className="flex items-center space-x-3 p-2 rounded-xl hover:bg-white dark:hover:bg-slate-800 transition-colors group cursor-pointer"
                         >
                             <div className="w-8 h-8 bg-gradient-to-br from-slate-400 to-slate-600 rounded-full flex items-center justify-center">
                                 <User className="w-4 h-4 text-white" />
@@ -98,7 +112,7 @@ export function DashboardHeader({ onMenuClick, sidebarCollapsed, onToggleSidebar
                                     {user?.role}
                                 </div>
                             </div>
-                            <ChevronDown className="w-4 h-4 text-slate-400" />
+                            <ChevronDown className="w-4 h-4 text-slate-400 group-hover:text-slate-600 dark:group-hover:text-slate-300 transition-colors" />
                         </button>
 
                         <AnimatePresence>
@@ -111,9 +125,9 @@ export function DashboardHeader({ onMenuClick, sidebarCollapsed, onToggleSidebar
                                 >
                                     <button
                                         onClick={logout}
-                                        className="w-full flex items-center space-x-2 px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                                        className="w-full flex items-center space-x-2 px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors group"
                                     >
-                                        <LogOut className="w-4 h-4" />
+                                        <LogOut className="w-4 h-4 text-slate-500 group-hover:text-slate-700 dark:text-slate-400 dark:group-hover:text-slate-300 transition-colors" />
                                         <span>Sign out</span>
                                     </button>
                                 </motion.div>

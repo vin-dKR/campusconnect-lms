@@ -11,11 +11,9 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
 
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
-    console.log("sidebarOpen-----", sidebarOpen, "------sidebarCollapsed", sidebarCollapsed)
 
     const handleResize = useCallback(() => {
         const width = window.innerWidth;
-        console.log("--width", width)
 
         if (width >= 1024 && !sidebarOpen) {
             setSidebarOpen(true);
@@ -26,7 +24,6 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
 
     useEffect(() => {
         if (typeof window === 'undefined') return;
-        console.log("--useeffect")
 
         handleResize();
 
@@ -55,7 +52,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
     };
 
     return (
-        <div className="min-h-screen w-full bg-slate-50 dark:bg-slate-950 flex">
+        <div className="min-h-screen w-full bg-gary-50 dark:bg-slate-950 flex">
             <DashboardSidebar
                 isOpen={sidebarOpen}
                 isCollapsed={sidebarCollapsed}
