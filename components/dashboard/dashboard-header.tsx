@@ -36,13 +36,13 @@ export function DashboardHeader({ onMenuClick, sidebarCollapsed, onToggleSidebar
             case 'superadmin': return 'text-red-600 dark:text-red-400';
             case 'admin': return 'text-blue-600 dark:text-blue-400';
             case 'teacher': return 'text-green-600 dark:text-green-400';
-            case 'student': return 'text-purple-600 dark:text-purple-400';
+            case 'student': return 'text-white dark:text-black';
             default: return 'text-slate-600 dark:text-slate-400';
         }
     };
 
     return (
-        <header className="bg-transparent sticky top-0 z-30">
+        <header className="bg-transparent sticky top-0 z-0">
             <div className="flex items-center justify-between p-6">
                 {/* Left side - Menu button and breadcrumb */}
                 <div className="flex items-center space-x-4">
@@ -101,14 +101,14 @@ export function DashboardHeader({ onMenuClick, sidebarCollapsed, onToggleSidebar
                             onClick={() => setShowUserMenu(!showUserMenu)}
                             className="flex items-center space-x-3 p-2 rounded-xl hover:bg-white dark:hover:bg-slate-800 transition-colors group cursor-pointer"
                         >
-                            <div className="w-8 h-8 bg-gradient-to-br from-slate-400 to-slate-600 rounded-full flex items-center justify-center">
+                            <div className="w-10 h-10 bg-gradient-to-br from-slate-400 to-slate-600 rounded-full flex items-center justify-center">
                                 <User className="w-4 h-4 text-white" />
                             </div>
                             <div className="hidden lg:block text-left">
                                 <div className="text-sm font-medium text-slate-900 dark:text-white">
                                     {user?.name}
                                 </div>
-                                <div className={`text-xs ${getRoleColor(user?.role || '')}`}>
+                                <div className={`text-xs bg-black dark:bg-white rounded-xl text-center ${getRoleColor(user?.role || '')}`}>
                                     {user?.role}
                                 </div>
                             </div>

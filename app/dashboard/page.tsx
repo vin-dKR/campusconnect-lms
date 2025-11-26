@@ -166,7 +166,7 @@ export default function DashboardPage() {
                         </div>
 
                         <div className="space-y-4">
-                            {recentContacts.map((contact, index) => (
+                            {recentContacts.map((contact) => (
                                 <div key={contact.id} className="flex items-center space-x-3 p-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
                                     <div className="w-8 h-8 bg-slate-200 dark:bg-slate-700 rounded-full flex items-center justify-center">
                                         <span className="text-xs font-medium text-slate-600 dark:text-slate-400">
@@ -207,7 +207,7 @@ export default function DashboardPage() {
                                 { icon: Calendar, label: 'Attendance', href: '/dashboard/attendance' },
                                 { icon: FileText, label: 'Reports', href: '/dashboard/report-card' },
                                 { icon: Download, label: 'Downloads', href: '#' },
-                            ].map((action, index) => (
+                            ].map((action) => (
                                 <button
                                     key={action.label}
                                     className="p-4 rounded-xl border border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 hover:bg-slate-50 dark:hover:bg-slate-800 transition-all duration-200 group"
