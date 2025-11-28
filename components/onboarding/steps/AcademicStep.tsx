@@ -52,8 +52,8 @@ export function AcademicStep({ formData, onFormDataChange, onToggleSubject }: Ac
                                 type="button"
                                 onClick={() => onToggleSubject(subject)}
                                 className={`p-3 text-center border rounded-lg transition-all duration-200 ${formData.subjects.includes(subject)
-                                        ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300'
-                                        : 'border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-slate-400 dark:hover:border-slate-600'
+                                    ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300'
+                                    : 'border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-slate-400 dark:hover:border-slate-600'
                                     }`}
                             >
                                 <BookOpen className="w-4 h-4 mx-auto mb-1" />

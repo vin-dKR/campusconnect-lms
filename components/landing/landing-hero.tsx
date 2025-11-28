@@ -4,7 +4,6 @@ import { motion } from 'framer-motion';
 import { BookOpen, LogIn, Users, BarChart3 } from 'lucide-react';
 import { ThemeToggle } from '../ui/theme-toggle';
 import { Button } from '@/components/ui/button';
-import { useAuthStore, type UserRole } from '@/store/auth-store';
 
 interface LandingHeroProps {
     onGuestLogin: (role: UserRole) => void;

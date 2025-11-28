@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, User, GraduationCap, Settings, BarChart3 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { useAuthStore, type UserRole } from '@/store/auth-store';
+import { useAuthStore } from '@/store/auth-store';
 
 const roles = [
     {

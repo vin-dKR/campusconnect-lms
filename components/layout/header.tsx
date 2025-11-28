@@ -1,15 +1,9 @@
 'use client';
 
-import { Button } from '@/components/ui/button';
 import { ThemeToggle } from '@/components/ui/theme-toggle';
-import { useAuthStore, type UserRole } from '@/store/auth-store';
 import Link from 'next/link';
 
-interface HeaderProps {
-    onGuestLogin: (role: UserRole) => void;
-}
-
-export function Header({ onGuestLogin }: HeaderProps) {
+export function Header() {
     return (
         <header className="fixed top-0 left-0 right-0 z-40 bg-white/80 dark:bg-slate-950/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-800">
             <div className="max-w-7xl mx-auto px-6">

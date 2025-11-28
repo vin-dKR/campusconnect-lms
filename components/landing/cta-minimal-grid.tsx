@@ -3,7 +3,6 @@
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { useAuthStore, type UserRole } from '@/store/auth-store';
 
 interface CTAMinimalGridProps {
     onGuestLogin: (role: UserRole) => void;

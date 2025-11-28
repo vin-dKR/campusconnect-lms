@@ -15,7 +15,7 @@ export default function LandingPage() {
     console.log("---p---user", user)
     return (
         <div className="min-h-screen bg-white dark:bg-slate-950">
-            <Header onGuestLogin={loginAsGuest} />
+            <Header />
             <MinimalHero onGuestLogin={loginAsGuest} />
             <ValueProposition />
             <FeaturesGrid />

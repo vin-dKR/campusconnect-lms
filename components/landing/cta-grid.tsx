@@ -1,9 +1,8 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { ArrowRight, CheckCircle } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { useAuthStore, type UserRole } from '@/store/auth-store';
 
 interface CTAGridProps {
     onGuestLogin: (role: UserRole) => void;
