@@ -10,8 +10,9 @@ import { AuthModal } from '@/components/landing/auth-modal';
 import { CTACard } from '@/components/landing/cta-card';
 
 export default function LandingPage() {
-    const { loginAsGuest } = useAuthStore();
+    const { user, loginAsGuest } = useAuthStore();
 
+    console.log("---p---user", user)
     return (
         <div className="min-h-screen bg-white dark:bg-slate-950">
             <Header onGuestLogin={loginAsGuest} />

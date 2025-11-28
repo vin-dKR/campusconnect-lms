@@ -2,12 +2,15 @@
 
 import { useEffect, useState, useCallback } from 'react';
 import { useAuthStore } from '@/store/auth-store';
-import { redirect } from 'next/navigation';
+import { redirect, useRouter } from 'next/navigation';
 import { DashboardSidebar } from '@/components/dashboard/dashboard-sidebar';
 import { DashboardHeader } from '@/components/dashboard/dashboard-header';
+import { Loader2 } from 'lucide-react';
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
-    const { user, isAuthenticated } = useAuthStore();
+    const { user, isAuthenticated, isLoading } = useAuthStore();
+    const router = useRouter();
+    const [isCheckingAuth, setIsCheckingAuth] = useState(true);
 
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
@@ -37,8 +40,38 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         return () => window.removeEventListener('resize', listener);
     }, [handleResize]);
 
-    if (!isAuthenticated || !user) {
-        redirect('/auth/signin');
+    // Check authentication status
+    useEffect(() => {
+        // If store is still loading, wait
+        if (isLoading) {
+            return;
+        }
+
+        // If not authenticated or no user, redirect
+        if (!isAuthenticated || !user) {
+            console.log("Redirecting to signin - User:", user, "isAuthenticated:", isAuthenticated);
+            redirect('/auth/signin');
+        }
+
+        // If user is not onboarded, redirect to onboarding
+        if (!user.isOnboarded) {
+            console.log("Redirecting to onboarding");
+            redirect('/onboarding');
+        }
+
+        setIsCheckingAuth(false);
+    }, [user, isAuthenticated, isLoading, router]);
+
+    // Show loading spinner while checking authentication
+    if (isCheckingAuth || isLoading) {
+        return (
+            <div className="min-h-screen w-full bg-gray-50 dark:bg-slate-950 flex items-center justify-center">
+                <div className="flex flex-col items-center space-y-4">
+                    <Loader2 className="w-8 h-8 animate-spin text-blue-600" />
+                    <p className="text-slate-600 dark:text-slate-400">Checking authentication...</p>
+                </div>
+            </div>
+        );
     }
 
     const onToggleCollapse = () => {
@@ -52,7 +85,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
     };
 
     return (
-        <div className="min-h-screen w-full bg-gary-50 dark:bg-slate-950 flex">
+        <div className="min-h-screen w-full bg-gray-50 dark:bg-slate-950 flex">
             <DashboardSidebar
                 isOpen={sidebarOpen}
                 isCollapsed={sidebarCollapsed}
@@ -71,4 +104,3 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         </div>
     );
 }
-
