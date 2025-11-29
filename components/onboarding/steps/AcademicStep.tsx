@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { BookOpen } from 'lucide-react';
-import { AVAILABLE_SUBJECTS } from '@/constants/onboarding/onboarding-data';
+import { AVAILABLE_CLASSES, AVAILABLE_SUBJECTS } from '@/constants/onboarding/onboarding-data';
 
 interface AcademicStepProps {
     formData: {
@@ -30,16 +30,19 @@ export function AcademicStep({ formData, onFormDataChange, onToggleSubject }: Ac
             <div className="space-y-4">
                 <div>
                     <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
-                        Grade/Class
+                        Class
                     </label>
-                    <input
-                        type="text"
+                    <select
                         value={formData.grade}
                         onChange={(e) => onFormDataChange('grade', e.target.value)}
-                        className="w-full px-4 py-3 border border-slate-300 dark:border-slate-700 rounded-lg bg-white dark:bg-slate-900 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                        placeholder="e.g., 10A, Grade 11"
-                    />
+                        className="w-full px-4 py-2 border border-slate-300 dark:border-slate-700 rounded-xl bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    >
+                        {AVAILABLE_CLASSES.map(cls => (
+                            <option key={cls} value={cls}>{cls}</option>
+                        ))}
+                    </select>
                 </div>
+
 
                 <div>
                     <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">

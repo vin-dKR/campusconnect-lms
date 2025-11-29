@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import { Calendar, Check, X, Clock, Save, Users } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import toast from 'react-hot-toast';
+import { AVAILABLE_CLASSES } from '@/constants/onboarding/onboarding-data';
 
 type AttendanceStatus = 'present' | 'absent' | 'late';
 
@@ -28,7 +29,6 @@ export default function AttendancePage() {
     ]);
     const [isSaving, setIsSaving] = useState(false);
 
-    const classes = ['10A', '10B', '11A', '11B', '12A', '12B'];
 
     const updateAttendance = (studentId: string, status: AttendanceStatus) => {
         setStudents(prev => prev.map(student =>
@@ -106,7 +106,7 @@ export default function AttendancePage() {
                             onChange={(e) => setSelectedClass(e.target.value)}
                             className="w-full px-4 py-2 border border-slate-300 dark:border-slate-700 rounded-xl bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
                         >
-                            {classes.map(cls => (
+                            {AVAILABLE_CLASSES.map(cls => (
                                 <option key={cls} value={cls}>{cls}</option>
                             ))}
                         </select>

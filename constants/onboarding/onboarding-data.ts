@@ -9,3 +9,7 @@ export const AVAILABLE_SUBJECTS = [
     'Mathematics', 'Physics', 'Chemistry', 'Biology',
     'English', 'Computer Science', 'History', 'Geography'
 ];
+
+export const AVAILABLE_CLASSES = ['10A', '10B', '11A', '11B', '12A', '12B'];
+
+
