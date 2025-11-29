@@ -6,6 +6,7 @@ import { Calendar, Check, X, Clock, Save, Users } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import toast from 'react-hot-toast';
 import { AVAILABLE_CLASSES } from '@/constants/onboarding/onboarding-data';
+import { useUserDb } from '@/store/users-store';
 
 type AttendanceStatus = 'present' | 'absent' | 'late';
 
@@ -29,6 +30,8 @@ export default function AttendancePage() {
     ]);
     const [isSaving, setIsSaving] = useState(false);
 
+    const { getAllStudents } = useUserDb()
+    console.log("--- here are the users", getAllStudents())
 
     const updateAttendance = (studentId: string, status: AttendanceStatus) => {
         setStudents(prev => prev.map(student =>

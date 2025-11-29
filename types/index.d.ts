@@ -112,6 +112,9 @@ declare global {
     interface UserDB {
         users: Record<string, User>
         addUserToDb: (user: User) => void
+        getAllUsers: () => Record<string, User>
+        getAllStudents: () => void
+        getAllTeachers: () => void
     }
 
     // ------------------------ onboarding --------------------------------
