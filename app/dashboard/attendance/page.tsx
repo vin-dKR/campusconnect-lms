@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Calendar, Check, X, Clock, Save, Users } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -20,21 +20,18 @@ interface Student {
 export default function AttendancePage() {
     const [selectedDate, setSelectedDate] = useState(new Date());
     const [selectedClass, setSelectedClass] = useState('10A');
-    const [students, setStudents] = useState<Student[]>([
-        { id: '1', name: 'John Smith', rollNumber: '001', status: 'present' },
-        { id: '2', name: 'Emma Wilson', rollNumber: '002', status: 'present' },
-        { id: '3', name: 'Michael Brown', rollNumber: '003', status: 'late' },
-        { id: '4', name: 'Sarah Johnson', rollNumber: '004', status: 'absent' },
-        { id: '5', name: 'David Lee', rollNumber: '005', status: 'present' },
-        { id: '6', name: 'Lisa Garcia', rollNumber: '006', status: 'present' },
-    ]);
+    const [students, setStudents] = useState<User[] | null>()
     const [isSaving, setIsSaving] = useState(false);
 
     const { getAllStudents } = useUserDb()
-    console.log("--- here are the users", getAllStudents())
+
+    useEffect(() => {
+        const allStuents = getAllStudents()
+        setStudents(allStuents)
+    }, [])
 
     const updateAttendance = (studentId: string, status: AttendanceStatus) => {
-        setStudents(prev => prev.map(student =>
+        setStudents(prev => prev?.map(student =>
             student.id === studentId ? { ...student, status } : student
         ));
     };
@@ -84,7 +81,7 @@ export default function AttendancePage() {
                         <div className="flex items-center space-x-2">
                             <Users className="w-5 h-5 text-slate-400" />
                             <span className="text-sm text-slate-600 dark:text-slate-400">
-                                {students.length} students
+                                {students?.length} students
                             </span>
                         </div>
                     </div>
@@ -168,7 +165,7 @@ export default function AttendancePage() {
                 </div>
 
                 <div className="divide-y divide-slate-200 dark:divide-slate-800">
-                    {students.map((student, index) => (
+                    {students?.map((student, index) => (
                         <motion.div
                             key={student.id}
                             initial={{ opacity: 0, x: -20 }}
@@ -187,11 +184,12 @@ export default function AttendancePage() {
                                         {student.name}
                                     </div>
                                     <div className="text-sm text-slate-500 dark:text-slate-500">
-                                        Roll No: {student.rollNumber}
+                                        Roll No: {index + 1}
                                     </div>
                                 </div>
                             </div>
 
+                            {/*
                             <div className="flex items-center space-x-2">
                                 <Button
                                     variant={student.status === 'present' ? 'default' : 'outline'}
@@ -239,12 +237,14 @@ export default function AttendancePage() {
                                     </div>
                                 </div>
                             </div>
+                                */}
                         </motion.div>
                     ))}
                 </div>
             </motion.div>
 
             {/* Summary */}
+            {/*
             <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -255,7 +255,7 @@ export default function AttendancePage() {
                     <div className="flex items-center justify-between">
                         <div>
                             <div className="text-2xl font-light text-green-900 dark:text-green-100">
-                                {students.filter(s => s.status === 'present').length}
+                                {students?.filter(s => s.status === 'present').length}
                             </div>
                             <div className="text-sm text-green-700 dark:text-green-300">Present</div>
                         </div>
@@ -287,6 +287,7 @@ export default function AttendancePage() {
                     </div>
                 </div>
             </motion.div>
+                */}
         </div>
     );
 }

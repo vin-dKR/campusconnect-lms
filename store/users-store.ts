@@ -26,7 +26,24 @@ export const useUserDb = create<UserDB>()(
             }
             return studentsArray
         },
-        getAllTeachers: () => get()
+
+        getAllTeachers: () => {
+            const allUsers = get().getAllUsers()
+            const teachersArray: User[] = []
+
+            for (let [key, value] of Object.entries(allUsers)) {
+                teachersArray.push(value)
+            }
+
+            return teachersArray
+        },
+
+        getStudentsByClass: (standard) => {
+            const students = get().getAllStudents()
+
+            const studentByClass = students.filter(s => s.className === standard)
+            return studentByClass
+        }
     }),
         { name: 'users-sotre' })
 )

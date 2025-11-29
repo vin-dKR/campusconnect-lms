@@ -113,8 +113,9 @@ declare global {
         users: Record<string, User>
         addUserToDb: (user: User) => void
         getAllUsers: () => Record<string, User>
-        getAllStudents: () => void
-        getAllTeachers: () => void
+        getAllStudents: () => User[]
+        getAllTeachers: () => User[]
+        getStudentsByClass: (standard: string) => User[]
     }
 
     // ------------------------ onboarding --------------------------------
